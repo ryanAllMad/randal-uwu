@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randall Thor Uwu</title>
+    <style>
+        .rand {
+        width: 100%;
+        height: 100vh;
+        background: url('./randalthor.jpeg') 0 0 no-repeat;
+        background-size: cover;
+        /* cursor: url('./sponge.png'), auto; */
+        position: relative;
+        }
+        .buttons {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            position: absolute;
+            right: 0;
+        }
+        button {
+            width: 150px;
+            padding: 1rem;
+            margin: 2rem;
+            background-color: transparent;
+            color: #fff;
+            font-size: 2rem;
+            border-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="rand">
+        <div class="buttons">
+            <button id="wash"><img src="./sponge.png" alt="Blue sponge to wash with" />wash</button>
+            <button id="brush"><img src="./scrub-brush.png" alt="Blue sponge to wash with" />brush</button>
+            <button id="binky"><img src="./pacifier_pink.png" alt="Blue sponge to wash with" />binky</button>
+        </div>
+    </div>
+    <script>
+        const rand = document.querySelector('.rand')
+        const sponge = document.querySelector('#wash')
+        const scrub = document.querySelector('#brush')
+        const binky = document.querySelector('#binky')
+
+        sponge.addEventListener('click', () => {
+            rand.style.cursor = `url('./sponge.png'), auto`
+        })
+        scrub.addEventListener('click', () => {
+            rand.style.cursor = `url('./scrub-brush.png'), auto`
+        })
+        binky.addEventListener('click', () => {
+            rand.style.cursor = `url('./pacifier_pink.png'), auto`
+            rand.addEventListener('click', (e) => {
+                console.log(e)
+                rand.insertAdjacentHTML('beforeend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./pacifier_pink.png" />`)
+            })
+            // console.log(e)
+        })
+    </script>
+</body>
+</html>
