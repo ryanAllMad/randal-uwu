@@ -58,7 +58,11 @@
             font-weight: 700;
         }
         @media screen and (max-width: 1000px) {
+            body {
+                touch-action:none;
+            }
             .rand {
+                touch-action:none;
                 background-position: 50% 0;
             }
             button {
@@ -67,6 +71,7 @@
                 margin: .5rem;
             }
             button img {
+                touch-action:none;
                 max-width: 45px;
             }
             
@@ -125,16 +130,34 @@
         })
             
      } else {
-        spongeImg.addEventListener('drag', (e) => {
-            dropImage = `<div class="outer-wrap" style="position:absolute; top:${e.pageY - 22.5}px; left:${e.pageX - 22.5}px;"><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./sponge.png" alt="Baby has a scrub" /></div></div>`
+        sponge.addEventListener('click', () => {
+        rand.addEventListener('touchmove', (e) => {
+            const remImage = document.querySelector('.outer-wrap')
+            if(remImage) removeImage()
+            for (let i = 0; i < e.touches.length; i++) {
+                rand.insertAdjacentHTML('afterend', `<div class="outer-wrap" style="position:absolute; top:${e.touches[i].clientY - 22.5}px; left:${e.touches[i].clientX - 22.5}px;"><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./sponge.png" alt="Baby has a scrub" /></div></div>`)
+            }
         })
-        brushImg.addEventListener('drag', (e) => {
-            dropImage = `<div class="outer-wrap" style="position:absolute; top:${e.pageY - 22.5}px; left:${e.pageX - 22.5}px;""><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./scrub-brush.png" alt="Baby has a brush" /></div></div>`
         })
-        binkyImg.addEventListener('drag', (e) => {
-            dropImage = `<div class="outer-wrap" style="position:absolute; top:${e.pageY - 22.5}px; left:${e.pageX - 22.5}px;"><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./pacifier_pink.png" alt="Baby has a nap now" /></div></div>`
+        scrub.addEventListener('click', () => {
+        rand.addEventListener('touchmove', (e) => {
+        const remImage = document.querySelector('.outer-wrap')
+        if(remImage) removeImage()
+        for (let i = 0; i < e.touches.length; i++) {
+            rand.insertAdjacentHTML('afterend', `<div class="outer-wrap" style="position:absolute; top:${e.touches[i].clientY - 22.5}px; left:${e.touches[i].clientX - 22.5}px;"><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./scrub-brush.png" alt="Baby has a brush" /></div></div>`)
+        }
         })
-    }
+        })
+        binky.addEventListener('click', (e) => {
+        rand.addEventListener('touchmove', (e) => {
+        const remImage = document.querySelector('.outer-wrap')
+        if(remImage) removeImage()
+        for (let i = 0; i < e.touches.length; i++) {
+            rand.insertAdjacentHTML('afterend', `<div class="outer-wrap" style="position:absolute; top:${e.touches[i].clientY - 22.5}px; left:${e.touches[i].clientX- 22.5}px;"><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./pacifier_pink.png" alt="Baby has a nap now" /></div></div>`)
+        }
+        })
+    })
+}
     </script>
 </body>
 </html>
