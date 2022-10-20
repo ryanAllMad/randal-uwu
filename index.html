@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Randall Thor Uwu</title>
+    <title>Randall Thor oo wu</title>
     <style>
         .rand {
-        width: 100%;
+        width: calc(100% - 25%);
         height: 100vh;
         background: url('./randalthor.jpeg') 0 0 no-repeat;
         background-size: cover;
-        /* cursor: url('./sponge.png'), auto; */
-        position: relative;
+        
+        }
+        .wrapper {
+            position: relative;
+            display: flex;
+        }
+        .visually-hidden {
+            color: transparent;
         }
         .buttons {
             display: flex;
@@ -20,34 +26,89 @@
             align-items: center;
             position: absolute;
             right: 0;
+            z-index: 3;
         }
         button {
             width: 150px;
             padding: 1rem;
             margin: 2rem;
-            background-color: transparent;
-            color: #fff;
+            color: #000;
             font-size: 2rem;
             border-color: transparent;
+        }
+        @media screen and (max-width: 1000px) {
+            .rand {
+                background-position: 50% 0;
+            }
+            button {
+                width: 75px;
+                font-size: 1.2rem;
+                margin: .5rem;
+            }
+            button img {
+                max-width: 45px;
+            }
+            
         }
     </style>
 </head>
 <body>
-    <div class="rand">
+    <div class="wrapper">
+        <div class="rand">
+            <div class="visually-hidden" aria-live="polite">This web page has a background image of Rand Al'Thor from the Amazon wheel of time series. You can use the sponge, brush, and binky to take care of this oooo woo boy</div>
+        </div>
         <div class="buttons">
             <button id="wash"><img src="./sponge.png" alt="Blue sponge to wash with" />wash</button>
-            <button id="brush"><img src="./scrub-brush.png" alt="Blue sponge to wash with" />brush</button>
-            <button id="binky"><img src="./pacifier_pink.png" alt="Blue sponge to wash with" />binky</button>
+            <button id="brush"><img src="./scrub-brush.png" alt="Brown brush" />brush</button>
+            <button id="binky"><img src="./pacifier_pink.png" alt="Pink pacifier" />binky</button>
         </div>
     </div>
     <script>
+        const wrapper = document.querySelector('.wrapper')
         const rand = document.querySelector('.rand')
         const sponge = document.querySelector('#wash')
         const scrub = document.querySelector('#brush')
         const binky = document.querySelector('#binky')
+        
 
+        // touch events
+        if(window.innerWidth < 1000) {
         sponge.addEventListener('click', () => {
+            rand.addEventListener('click', (e) => {
+                wrapper.insertAdjacentHTML('beforeend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./sponge.png" alt="Wash baby" />`)
+            const images = document.querySelectorAll('.wrapper > img')
+            if(images.length > 1) {
+                images.forEach(image => image.remove())
+            }
+            })
+            
+        })
+        scrub.addEventListener('click', () => {
+            // rand.style.cursor = `url('./scrub-brush.png'), auto`
+            rand.addEventListener('click', (e) => {
+                wrapper.insertAdjacentHTML('beforeend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./scrub-brush.png" alt="Brush baby" />`)
+                const images = document.querySelectorAll('.wrapper > img')
+                if(images.length > 1) {
+                    images.forEach(image => image.remove())
+                }
+            })
+            
+        })
+        binky.addEventListener('click', () => {
+            rand.style.cursor = `url('./pacifier_pink.png'), auto`
+            rand.addEventListener('click', (e) => {
+                console.log(e)
+                wrapper.insertAdjacentHTML('beforeend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./pacifier_pink.png" alt="Baby has a pacifier now" />`)
+                const images = document.querySelectorAll('.wrapper > img')
+                if(images.length > 1) {
+                    images.forEach(image => image.remove())
+                }
+            })
+        })
+        } else {
+            sponge.addEventListener('click', () => {
             rand.style.cursor = `url('./sponge.png'), auto`
+
         })
         scrub.addEventListener('click', () => {
             rand.style.cursor = `url('./scrub-brush.png'), auto`
@@ -55,11 +116,10 @@
         binky.addEventListener('click', () => {
             rand.style.cursor = `url('./pacifier_pink.png'), auto`
             rand.addEventListener('click', (e) => {
-                console.log(e)
-                rand.insertAdjacentHTML('beforeend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./pacifier_pink.png" />`)
+                rand.insertAdjacentHTML('afterend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./pacifier_pink.png" alt="Baby has a pacifier now" />`)    
             })
-            // console.log(e)
         })
+        }
     </script>
 </body>
 </html>
