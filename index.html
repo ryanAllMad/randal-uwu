@@ -5,7 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Randall Thor oo wu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        body {
+        font-family: 'Roboto', sans-serif;
+        }
         .rand {
         width: calc(100% - 25%);
         height: 100vh;
@@ -35,6 +41,21 @@
             color: #000;
             font-size: 2rem;
             border-color: transparent;
+            user-select: none;
+        }
+        .img-wrap {
+            position: relative;
+        }
+        .close {
+            background-color: #fff;
+            border-radius: 50%;
+            border: 2px solid black;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0.25rem 0.45rem;
+            cursor: pointer;
+            font-weight: 700;
         }
         @media screen and (max-width: 1000px) {
             .rand {
@@ -64,62 +85,56 @@
         </div>
     </div>
     <script>
-        const wrapper = document.querySelector('.wrapper')
-        const rand = document.querySelector('.rand')
-        const sponge = document.querySelector('#wash')
-        const scrub = document.querySelector('#brush')
-        const binky = document.querySelector('#binky')
+    const wrapper = document.querySelector('.wrapper')
+    const rand = document.querySelector('.rand')
+    const sponge = document.querySelector('#wash')
+    const scrub = document.querySelector('#brush')
+    const binky = document.querySelector('#binky')
+    const spongeImg = document.querySelector('#wash img') 
+    const brushImg = document.querySelector('#brush img') 
+    const binkyImg = document.querySelector('#binky img') 
+    let dropImage
         
+        
+    spongeImg.setAttribute('draggable', true)
+    brushImg.setAttribute('draggable', true)
+    binkyImg.setAttribute('draggable', true)
 
-        // touch events
-        if(window.innerWidth < 1000) {
-        sponge.addEventListener('click', () => {
-            rand.addEventListener('click', (e) => {
-                wrapper.insertAdjacentHTML('beforeend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./sponge.png" alt="Wash baby" />`)
-            const images = document.querySelectorAll('.wrapper > img')
-            if(images.length > 1) {
-                images.forEach(image => image.remove())
-            }
-            })
-            
-        })
-        scrub.addEventListener('click', () => {
-            // rand.style.cursor = `url('./scrub-brush.png'), auto`
-            rand.addEventListener('click', (e) => {
-                wrapper.insertAdjacentHTML('beforeend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./scrub-brush.png" alt="Brush baby" />`)
-                const images = document.querySelectorAll('.wrapper > img')
-                if(images.length > 1) {
-                    images.forEach(image => image.remove())
-                }
-            })
-            
-        })
-        binky.addEventListener('click', () => {
-            rand.style.cursor = `url('./pacifier_pink.png'), auto`
-            rand.addEventListener('click', (e) => {
-                console.log(e)
-                wrapper.insertAdjacentHTML('beforeend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./pacifier_pink.png" alt="Baby has a pacifier now" />`)
-                const images = document.querySelectorAll('.wrapper > img')
-                if(images.length > 1) {
-                    images.forEach(image => image.remove())
-                }
-            })
-        })
-        } else {
-            sponge.addEventListener('click', () => {
-            rand.style.cursor = `url('./sponge.png'), auto`
+    rand.addEventListener('dragover', (e) => {
+        e.preventDefault()
+    }, false)
 
+    rand.addEventListener('drop', (e) => {
+        rand.insertAdjacentHTML('afterend', dropImage)
+    })
+
+    function removeImage() {
+        const remImage = document.querySelector('.outer-wrap')
+        remImage.remove()
+    }
+
+    if(window.innerWidth > 1000) {
+        spongeImg.addEventListener('drag', (e) => {
+            dropImage = `<div class="outer-wrap" style="position:absolute; top:${e.pageY - 56}px; left:${e.pageX - 56}px;"><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./sponge.png" alt="Baby has a scrub" /></div></div>`
         })
-        scrub.addEventListener('click', () => {
-            rand.style.cursor = `url('./scrub-brush.png'), auto`
+        brushImg.addEventListener('drag', (e) => {
+            dropImage = `<div class="outer-wrap" style="position:absolute; top:${e.pageY - 56}px; left:${e.pageX - 56}px;""><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./scrub-brush.png" alt="Baby has a brush" /></div></div>`
         })
-        binky.addEventListener('click', () => {
-            rand.style.cursor = `url('./pacifier_pink.png'), auto`
-            rand.addEventListener('click', (e) => {
-                rand.insertAdjacentHTML('afterend', `<img style="position:absolute; top:${e.pageY}px; left:${e.pageX}px;" src="./pacifier_pink.png" alt="Baby has a pacifier now" />`)    
-            })
+        binkyImg.addEventListener('drag', (e) => {
+            dropImage = `<div class="outer-wrap" style="position:absolute; top:${e.pageY - 56}px; left:${e.pageX - 56}px;"><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./pacifier_pink.png" alt="Baby has a nap now" /></div></div>`
         })
-        }
+            
+     } else {
+        spongeImg.addEventListener('drag', (e) => {
+            dropImage = `<div class="outer-wrap" style="position:absolute; top:${e.pageY - 22.5}px; left:${e.pageX - 22.5}px;"><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./sponge.png" alt="Baby has a scrub" /></div></div>`
+        })
+        brushImg.addEventListener('drag', (e) => {
+            dropImage = `<div class="outer-wrap" style="position:absolute; top:${e.pageY - 22.5}px; left:${e.pageX - 22.5}px;""><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./scrub-brush.png" alt="Baby has a brush" /></div></div>`
+        })
+        binkyImg.addEventListener('drag', (e) => {
+            dropImage = `<div class="outer-wrap" style="position:absolute; top:${e.pageY - 22.5}px; left:${e.pageX - 22.5}px;"><div class="img-wrap"><div class="close" onclick="removeImage()">X</div><img src="./pacifier_pink.png" alt="Baby has a nap now" /></div></div>`
+        })
+    }
     </script>
 </body>
 </html>
